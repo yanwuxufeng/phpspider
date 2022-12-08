@@ -818,6 +818,14 @@ class requests
             curl_setopt( self::$ch, CURLOPT_FOLLOWLOCATION, true);
         }
 
+        // debug 具体curl 请求内容和header
+        //curl_setopt(self::$ch, CURLOPT_VERBOSE, true);
+        // close 之后 保存 cookie
+        curl_setopt(self::$ch, CURLOPT_COOKIEJAR, 'cookie.txt'); 
+        // 启动时，加载cookie
+        curl_setopt(self::$ch, CURLOPT_COOKIEFILE, 'cookie.txt');
+
+
         self::$raw = curl_exec ( self::$ch );
         // 真实url
         //$location = curl_getinfo( self::$ch, CURLINFO_EFFECTIVE_URL);
