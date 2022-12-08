@@ -406,16 +406,6 @@ class phpspider
         log::$log_file = isset($configs['log_file']) ? $configs['log_file'] : PATH_DATA.'/phpspider.log';
         log::$log_type = isset($configs['log_type']) ? $configs['log_type'] : false;
 
-        // 彩蛋
-        $included_files = get_included_files();
-        $content = file_get_contents($included_files[0]);
-        if (!preg_match("#/\* Do NOT delete this comment \*/#", $content) || !preg_match("#/\* 不要删除这段注释 \*/#", $content))
-        {
-            $msg = "Unknown error...";
-            log::error($msg);
-            exit;
-        }
-
         $configs['name']        = isset($configs['name'])        ? $configs['name']        : 'phpspider';
         $configs['proxy']       = isset($configs['proxy'])       ? $configs['proxy']       : false;
         $configs['user_agent']  = isset($configs['user_agent'])  ? $configs['user_agent']  : self::AGENT_PC;
