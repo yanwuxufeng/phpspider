@@ -406,6 +406,8 @@ class phpspider
         log::$log_file = isset($configs['log_file']) ? $configs['log_file'] : PATH_DATA.'/phpspider.log';
         log::$log_type = isset($configs['log_type']) ? $configs['log_type'] : false;
 
+        log::$log_out_channel =  isset($configs['log_out_channel']) ? $configs['log_out_channel'] : false;
+
         $configs['name']        = isset($configs['name'])        ? $configs['name']        : 'phpspider';
         $configs['proxy']       = isset($configs['proxy'])       ? $configs['proxy']       : false;
         $configs['user_agent']  = isset($configs['user_agent'])  ? $configs['user_agent']  : self::AGENT_PC;
@@ -927,7 +929,7 @@ class phpspider
 
     public function start()
     {
-        $this->parse_command();
+        // $this->parse_command();
 
         // 爬虫开始时间
         self::$time_start = time();

@@ -24,6 +24,7 @@ class log
     public static $log_file = "data/phpspider.log";
     public static $out_sta = "";
     public static $out_end = "";
+    public static $log_out_channel;
 
     public static function note($msg)
     {
@@ -80,19 +81,27 @@ class log
             return false;
         }
 
-        if ($log_type == 'note') 
-        {
-            $msg = self::$out_sta. $msg . "\n".self::$out_end;
+        if(self::$log_out_channel){
+            call_user_func(self::$log_out_channel, $msg);
         }
-        else 
+        else
         {
-            $msg = self::$out_sta.date("Y-m-d H:i:s")." [{$log_type}] " . $msg .self::$out_end. "\n";
+
+            if ($log_type == 'note') 
+            {
+                $msg = self::$out_sta. $msg . "\n".self::$out_end;
+            }
+            else 
+            {
+                $msg = self::$out_sta.date("Y-m-d H:i:s")." [{$log_type}] " . $msg .self::$out_end. "\n";
+            }
+            if(self::$log_show)
+            {
+                echo $msg;
+            }
+            file_put_contents(self::$log_file, $msg, FILE_APPEND | LOCK_EX);
+
         }
-        if(self::$log_show)
-        {
-            echo $msg;
-        }
-        file_put_contents(self::$log_file, $msg, FILE_APPEND | LOCK_EX);
     }
 
     /**
